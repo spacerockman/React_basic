@@ -1,0 +1,78 @@
+// App.scss
+
+.app {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .reply-navigation {
+    ul {
+      display: flex;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+  
+    li {
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+      background-color: #3498db;
+      color: #fff;
+      cursor: pointer;
+  
+      &:first-child {
+        span {
+          font-weight: bold;
+        }
+      }
+  
+      span {
+        display: block;
+        margin-top: 5px;
+      }
+  
+      .nav-item {
+        cursor: pointer;
+        transition: color 0.3s ease;
+      }
+      .active {
+        background-color: #007bff; /* 设置背景颜色 */
+        color: #ffffff; /* 设置文字颜色 */
+        font-weight: bold; /* 设置文字加粗 */
+        /* 可以添加其他你需要的样式 */
+    }
+    }
+  }
+  
+  .reply-list {
+    margin-top: 20px;
+  
+    > div {
+      display: flex;
+      margin-bottom: 20px;
+    }
+  
+    img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+  
+    .user-div {
+      display: flex;
+      flex-direction: column;
+  
+      span {
+        margin-bottom: 5px;
+      }
+  
+      .delete-btn {
+        color: #e74c3c;
+        cursor: pointer;
+      }
+    }
+  }
+  
