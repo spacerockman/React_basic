@@ -3,13 +3,15 @@ import { useState } from "react";
 
 import './App.scss'
 import _ from 'lodash'
+import classNames from 'classnames';
+import sasukeAvatar from './images/sasukeavatar.png';
 
 const list = [
     {
         rpid: 3,
         user: {
             uid: '1231231233',
-            avatar: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fnordic.ign.com%2Favatar-generations&psig=AOvVaw2O6DiRACwbiCOauXMFfxU9&ust=1707096802493000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCKji66XFkIQDFQAAAAAdAAAAABAE',
+            avatar: sasukeAvatar,
             name: '自分',
         },
         content: '笑',
@@ -20,7 +22,7 @@ const list = [
         rpid: 2,
         user: {
             uid: '23232322',
-            avatar: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fnordic.ign.com%2Favatar-generations&psig=AOvVaw2O6DiRACwbiCOauXMFfxU9&ust=1707096802493000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCKji66XFkIQDFQAAAAAdAAAAABAE',
+            avatar: sasukeAvatar,
             name: 'テスト太郎',
         },
         content: 'よっ',
@@ -31,7 +33,7 @@ const list = [
         rpid: 4,
         user: {
             uid: '323232',
-            avatar: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fnordic.ign.com%2Favatar-generations&psig=AOvVaw2O6DiRACwbiCOauXMFfxU9&ust=1707096802493000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCKji66XFkIQDFQAAAAAdAAAAABAE',
+            avatar: sasukeAvatar,
             name: 'テスト太郎２',
         },
         content: 'しゃっ',
@@ -83,7 +85,7 @@ function App() {
                     {tabs.map(item => 
                          <span key={item.type} 
                             onClick = {() => handleTabChange(item.type)}
-                            className = {`nav-item ${type === item.type ? "active": ""}`}
+                            className = {classNames('nav-item', {active : item.type === type})}
                          >{item.text}</span>
                     )}
                
@@ -97,7 +99,9 @@ function App() {
             <div key={item.rpid}>
                 {/**avator */}
                 <div>
-                    <img alt="" src={item.user.avatar}/>
+                    
+                    <img alt="" src={sasukeAvatar}/>
+                   
                 </div>
                 <div className="user-div">
                     <span>ユーザー名: {item.user.name}</span>
