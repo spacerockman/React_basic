@@ -1,11 +1,14 @@
 
 import { useRef, useState } from "react";
+import moment from 'moment';
+
 
 import './App.scss'
-import _ from 'lodash'
+import _, { random } from 'lodash'
 import classNames from 'classnames';
 import sasukeAvatar from './images/sasukeavatar.png';
 
+// comment list
 const list = [
     {
         rpid: 3,
@@ -81,6 +84,27 @@ function App() {
         console.dir(inputRef.current);
     }
 
+    // コメントの内容
+    const [content, setContent] = useState('')
+    let currentDate = moment(). format('MM-DD hh:mm'); console. log(currentDate);
+    const handleClickContent = () => {
+        console.log(content)
+        setCommentList([
+            ...commentList,
+            {
+                rpid: (Math.random() * 1000000).toString(),
+                user: {
+                    uid: Math.random() * 9999999,
+                    avatar: sasukeAvatar,
+                    name: '自分',
+                },
+                content: content,
+                ctime: currentDate,
+                like: Math.floor(Math.random() * 10000),
+            },
+        ])
+    }
+
   return (
     <div className="app">
       <div className="reply-navigation">
@@ -101,6 +125,22 @@ function App() {
         </ul>
        
       </div>
+        
+      <div className="reply-input">
+        <div className="user-div">
+            <img alt="" src={sasukeAvatar}/>
+            <span>ユーザー名: {user.uname}</span><br/>
+    
+            <textarea
+                placeholder="入力してください"
+                value={content}
+                onChange={(e)=>setContent(e.target.value)}
+            /><br/>
+            <button onClick={handleClickContent}>送信</button>
+        </div>
+      </div>
+
+
       <div className="reply-list">
         {/**コメント欄 */}
         {commentList.map(item => (
