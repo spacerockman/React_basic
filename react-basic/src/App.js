@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import './App.scss'
 import _ from 'lodash'
@@ -73,6 +73,14 @@ function App() {
             setCommentList(_.orderBy(commentList, 'ctime', 'desc'))
         }
     }
+
+    const [value, setValue] = useState('')
+
+    const inputRef = useRef(null)
+    const showDom = () => {
+        console.dir(inputRef.current);
+    }
+
   return (
     <div className="app">
       <div className="reply-navigation">
@@ -115,6 +123,19 @@ function App() {
             </div>
         ))}
       </div>
+      <div>
+        {/*  */}
+        <input
+            value = {value}
+            onChange = {(e) => setValue(e.target.value)}
+            type = 'text'
+            ref={inputRef}
+        />
+        <span>{value}</span>
+      </div>
+
+      {/* 要素 取得 */}
+        <button onClick={showDom}>押す</button>
     </div>
   );
 }
