@@ -86,7 +86,7 @@ function App() {
 
     // コメントの内容
     const [content, setContent] = useState('')
-    let currentDate = moment(). format('MM-DD hh:mm'); console. log(currentDate);
+    let currentDate = moment().format('MM-DD hh:mm')
     const handleClickContent = () => {
         console.log(content)
         setCommentList([
