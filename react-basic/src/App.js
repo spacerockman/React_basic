@@ -59,6 +59,7 @@ const tabs = [
 ]
 
 
+
 function App() {
     const [commentList, setCommentList] = useState(list)
 
@@ -81,11 +82,13 @@ function App() {
 
     const [value, setValue] = useState('')
 
+    const firstInputRef = useRef(null)
     const inputRef = useRef(null)
     const showDom = () => {
         console.dir(inputRef.current);
     }
 
+    
     // コメントの内容
     const [content, setContent] = useState('')
     let currentDate = moment().format('MM-DD hh:mm')
@@ -105,6 +108,10 @@ function App() {
                 like: Math.floor(Math.random() * 10000),
             },
         ])
+
+        // 送信した後に入力欄を再フォーカスする
+        setContent('')
+        firstInputRef.current.focus()
     }
 
   return (
@@ -136,6 +143,7 @@ function App() {
             <textarea
                 placeholder="入力してください"
                 value={content}
+                ref={firstInputRef}
                 onChange={(e)=>setContent(e.target.value)}
             /><br/>
             <button onClick={handleClickContent}>送信</button>
