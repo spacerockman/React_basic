@@ -1,12 +1,14 @@
 
 import { useRef, useState } from "react";
 import moment from 'moment';
-
+import dayjs from "dayjs";
 
 import './App.scss'
 import _, { random } from 'lodash'
 import classNames from 'classnames';
 import sasukeAvatar from './images/sasukeavatar.png';
+import { v4 as uuidv4 } from 'uuid';
+
 
 // comment list
 const list = [
@@ -92,14 +94,14 @@ function App() {
         setCommentList([
             ...commentList,
             {
-                rpid: (Math.random() * 1000000).toString(),
+                rpid: uuidv4(),
                 user: {
                     uid: Math.random() * 9999999,
                     avatar: sasukeAvatar,
                     name: '自分',
                 },
                 content: content,
-                ctime: currentDate,
+                ctime: dayjs(new Date()).format('MM-DD hh:mm'),
                 like: Math.floor(Math.random() * 10000),
             },
         ])
