@@ -57,12 +57,13 @@ const tabs = [
     {type: 'hot', text: 'hot'},
     {type: 'time', text: 'lastest'},
 ]
-
-
+// 子コンポーネント 
+function Son(props) {
+    return <div className="son"><h1>{props.name}</h1></div>
+}
 
 function App() {
     const [commentList, setCommentList] = useState(list)
-
     const handleItem = (id) => {
         console.log(id)
         setCommentList(commentList.filter(item => (item.rpid !== id)))
@@ -79,16 +80,12 @@ function App() {
             setCommentList(_.orderBy(commentList, 'ctime', 'desc'))
         }
     }
-
     const [value, setValue] = useState('')
-
     const firstInputRef = useRef(null)
     const inputRef = useRef(null)
     const showDom = () => {
         console.dir(inputRef.current);
     }
-
-    
     // コメントの内容
     const [content, setContent] = useState('')
     let currentDate = moment().format('MM-DD hh:mm')
@@ -108,11 +105,11 @@ function App() {
                 like: Math.floor(Math.random() * 10000),
             },
         ])
-
         // 送信した後に入力欄を再フォーカスする
         setContent('')
         firstInputRef.current.focus()
     }
+    const name = "This is a comment on Son"
 
   return (
     <div className="app">
@@ -132,9 +129,12 @@ function App() {
                
             </li>
         </ul>
-       
       </div>
-        
+
+      {/* 親コンポーネント  */}
+      <div>
+            <Son name={name}/>
+      </div>  
       <div className="reply-input">
         <div className="user-div">
             <img alt="" src={sasukeAvatar}/>
