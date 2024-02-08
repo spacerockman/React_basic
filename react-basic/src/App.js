@@ -57,164 +57,35 @@ const tabs = [
     {type: 'hot', text: 'hot'},
     {type: 'time', text: 'lastest'},
 ]
-// 子コンポーネント 
-function Son(props) {
-    return <div className="son">
-        <h1>{props.name}</h1>
-        <h1>{props.children}</h1>
-        </div>
+
+function A({onGetMsg}){
+    const msg = "this is the name of A"
+    return (
+        <div>
+            This is A component
+            <button onClick={()=>onGetMsg(msg)}>A click</button>
+        </div> 
+    )
 }
 
-
-// 子コンポーネント  
-function Son2({onGetMsg}) {
-    const msg = "This is a message from son2"
+function B({msg}){
     return (
-        <div className="son2">
-            <button onClick={() => onGetMsg(msg)}>Get Msg</button>
+        <div>
+            <h1>This is B component:</h1>
+            {msg}
         </div>
     )
 }
 
-// 親コンポーネント  
 function App() {
-    const [commentList, setCommentList] = useState(list)
-    const handleItem = (id) => {
-        console.log(id)
-        setCommentList(commentList.filter(item => (item.rpid !== id)))
-    }
-    const [type, setType] = useState('hot')
-    const handleTabChange = (type) => {
-        console.log(type)
-        setType(type)
-        if (type === 'hot') {
-            // ordered by likes
-            setCommentList(_.orderBy(commentList, 'like', 'desc'))
-        } else {
-            // ordered by time
-            setCommentList(_.orderBy(commentList, 'ctime', 'desc'))
-        }
-    }
-    const [value, setValue] = useState('')
-    const firstInputRef = useRef(null)
-    const inputRef = useRef(null)
-    const showDom = () => {
-        console.dir(inputRef.current);
-    }
-    // コメントの内容
-    const [content, setContent] = useState('')
-    let currentDate = moment().format('MM-DD hh:mm')
-    const handleClickContent = () => {
-        console.log(content)
-        setCommentList([
-            ...commentList,
-            {
-                rpid: uuidv4(),
-                user: {
-                    uid: Math.random() * 9999999,
-                    avatar: sasukeAvatar,
-                    name: '自分',
-                },
-                content: content,
-                ctime: dayjs(new Date()).format('MM-DD hh:mm'),
-                like: Math.floor(Math.random() * 10000),
-            },
-        ])
-        // 送信した後に入力欄を再フォーカスする
-        setContent('')
-        firstInputRef.current.focus()
-    }
-    const name = "This is a comment on Son"
-
-    const [msg, setMsg] = useState('')
-    const getMsg = (msg) => {
-        console.log(msg)
-        setMsg(msg)
-    }
-
+ const [msg, setMsg] = useState('');
+ const getMsg = (msg) => {
+    setMsg(msg)
+ }
   return (
-    <div className="app">
-      <div className="reply-navigation">
-        <ul>
-            <li>
-                <span>コメント</span>
-                <span>{10}</span>
-            </li>
-            <li>
-                    {tabs.map(item => 
-                         <span key={item.type} 
-                            onClick = {() => handleTabChange(item.type)}
-                            className = {classNames('nav-item', {active : item.type === type})}
-                         >{item.text}</span>
-                    )}
-               
-            </li>
-        </ul>
-      </div>
-
-     {/* 親コンポーネントから子コンポーネントに値を送信  */}
-      <div>
-            {/* <Son name={name}/>
-            <Son>
-                <div>
-                    This content is embedded in Son tag
-                </div>
-            </Son> */}
-            {msg}
-            <Son2 onGetMsg={getMsg}/>
-      </div> 
-
-      <div className="reply-input">
-        <div className="user-div">
-            <img alt="" src={sasukeAvatar}/>
-            <span>ユーザー名: {user.uname}</span><br/>
-    
-            <textarea
-                placeholder="入力してください"
-                value={content}
-                ref={firstInputRef}
-                onChange={(e)=>setContent(e.target.value)}
-            /><br/>
-            <button onClick={handleClickContent}>送信</button>
-        </div>
-      </div>
-
-
-      <div className="reply-list">
-        {/**コメント欄 */}
-        {commentList.map(item => (
-            <div key={item.rpid}>
-                {/**avator */}
-                <div>
-                    
-                    <img alt="" src={sasukeAvatar}/>
-                   
-                </div>
-                <div className="user-div">
-                    <span>ユーザー名: {item.user.name}</span>
-                    <span>コメント: {item.content}</span>
-                    <span>時間: {item.ctime}</span>
-                    <span>いいね: {item.like}</span>
-                    <span className="delete-btn" onClick={() => handleItem(item.rpid)}>
-                        削除
-                    </span>
-                </div>
-            </div>
-        ))}
-      </div>
-      <div>
-        {/*  */}
-        <input
-            value = {value}
-            onChange = {(e) => setValue(e.target.value)}
-            type = 'text'
-            ref={inputRef}
-        />
-        <span>{value}</span>
-      </div>
-
-      {/* 要素 取得 */}
-        <button onClick={showDom}>押す</button>
+    <div className="App">
+        <A onGetMsg={getMsg}/>
+        <B msg={msg}></B>
     </div>
   );
 }
