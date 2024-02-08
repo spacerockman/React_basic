@@ -59,9 +59,24 @@ const tabs = [
 ]
 // 子コンポーネント 
 function Son(props) {
-    return <div className="son"><h1>{props.name}</h1></div>
+    return <div className="son">
+        <h1>{props.name}</h1>
+        <h1>{props.children}</h1>
+        </div>
 }
 
+
+// 子コンポーネント  
+function Son2({onGetMsg}) {
+    const msg = "This is a message from son2"
+    return (
+        <div className="son2">
+            <button onClick={() => onGetMsg(msg)}>Get Msg</button>
+        </div>
+    )
+}
+
+// 親コンポーネント  
 function App() {
     const [commentList, setCommentList] = useState(list)
     const handleItem = (id) => {
@@ -111,6 +126,12 @@ function App() {
     }
     const name = "This is a comment on Son"
 
+    const [msg, setMsg] = useState('')
+    const getMsg = (msg) => {
+        console.log(msg)
+        setMsg(msg)
+    }
+
   return (
     <div className="app">
       <div className="reply-navigation">
@@ -131,10 +152,18 @@ function App() {
         </ul>
       </div>
 
-      {/* 親コンポーネント  */}
+     {/* 親コンポーネントから子コンポーネントに値を送信  */}
       <div>
-            <Son name={name}/>
-      </div>  
+            {/* <Son name={name}/>
+            <Son>
+                <div>
+                    This content is embedded in Son tag
+                </div>
+            </Son> */}
+            {msg}
+            <Son2 onGetMsg={getMsg}/>
+      </div> 
+
       <div className="reply-input">
         <div className="user-div">
             <img alt="" src={sasukeAvatar}/>
